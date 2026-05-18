@@ -1,112 +1,45 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import Sidebar from "../components/Sidebar";
+import StatsCard from "../components/StatsCard";
 
-function Dashboard({ user }) {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-
-  const [notes, setNotes] = useState([]);
-
-  const token = localStorage.getItem("token");
-
-  const fetchNotes = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:5000/api/notes",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      setNotes(response.data.notes);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchNotes();
-  }, []);
-
-  const handleCreateNote = async (e) => {
-    e.preventDefault();
-
-    try {
-      await axios.post(
-        "http://localhost:5000/api/notes",
-        {
-          title,
-          content,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      setTitle("");
-      setContent("");
-
-      fetchNotes();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+function Dashboard({ user, setUser }) {
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Dashboard</h1>
+    <div className="min-h-screen bg-gray-950 text-white flex">
 
-      <h3>Welcome {user.email}</h3>
+      <Sidebar setUser={setUser} />
 
-      <hr />
+      <div className="flex-1 p-10">
 
-      <h2>Create Note</h2>
+        <h1 className="text-4xl font-bold mb-3">
+          Welcome back 👋
+        </h1>
 
-      <form onSubmit={handleCreateNote}>
-        <input
-          type="text"
-          placeholder="Note title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+        <p className="text-gray-400 mb-10">
+          Logged in as {user?.email}
+        </p>
 
-        <br />
-        <br />
+        <div className="grid grid-cols-3 gap-6">
 
-        <textarea
-          placeholder="Note content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        />
+          <StatsCard
+            title="Total Notes"
+            value="12"
+            color="text-blue-500"
+          />
 
-        <br />
-        <br />
+          <StatsCard
+            title="Events"
+            value="4"
+            color="text-green-500"
+          />
 
-        <button type="submit">Create Note</button>
-      </form>
+          <StatsCard
+            title="Active Users"
+            value="23"
+            color="text-purple-500"
+          />
 
-      <hr />
-
-      <h2>Your Notes</h2>
-
-      {notes.map((note) => (
-        <div
-          key={note.id}
-          style={{
-            border: "1px solid gray",
-            padding: "10px",
-            marginBottom: "10px",
-          }}
-        >
-          <h3>{note.title}</h3>
-
-          <p>{note.content}</p>
         </div>
-      ))}
+
+      </div>
     </div>
   );
 }
