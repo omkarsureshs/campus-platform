@@ -16,7 +16,7 @@ function Dashboard({ user, setUser }) {
   transition={{ duration: 0.5 }}
 >
 
-  <h1 className="text-5xl font-bold mb-3">
+  <h1 className="text-5xl font-bold font-['Space_Grotesk']">
     Welcome back 👋
   </h1>
 

@@ -8,7 +8,7 @@ function Sidebar({ setUser }) {
   return (
     <div className="w-64 bg-gray-900 border-r border-gray-800 p-6">
 
-      <h1 className="text-2xl font-bold mb-10">
+     <h1 className="text-5xl font-bold font-['Space_Grotesk']">
         Campus Platform
       </h1>
 

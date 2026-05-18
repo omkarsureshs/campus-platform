@@ -51,7 +51,7 @@ alert("Protected route accessed!");
   <div className="min-h-screen flex items-center justify-center bg-gray-950">
     <div className="bg-gray-900 p-10 rounded-2xl shadow-2xl w-full max-w-md border border-gray-800">
 
-      <h2 className="text-4xl font-bold text-white mb-8 text-center">
+      <h2 className="text-5xl font-bold font-['Space_Grotesk']">
         Campus Platform
       </h2>
 
