@@ -48,34 +48,42 @@ alert("Protected route accessed!");
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+  <div className="min-h-screen flex items-center justify-center bg-gray-950">
+    <div className="bg-gray-900 p-10 rounded-2xl shadow-2xl w-full max-w-md border border-gray-800">
 
-      <form onSubmit={handleLogin}>
+      <h2 className="text-4xl font-bold text-white mb-8 text-center">
+        Campus Platform
+      </h2>
+
+      <form onSubmit={handleLogin} className="space-y-5">
+
         <input
           type="email"
           placeholder="Enter email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          className="w-full p-4 rounded-xl bg-gray-800 text-white border border-gray-700 outline-none focus:border-blue-500"
         />
-
-        <br />
-        <br />
 
         <input
           type="password"
           placeholder="Enter password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          className="w-full p-4 rounded-xl bg-gray-800 text-white border border-gray-700 outline-none focus:border-blue-500"
         />
 
-        <br />
-        <br />
+        <button
+          type="submit"
+          className="w-full bg-blue-600 hover:bg-blue-700 transition-all duration-300 text-white p-4 rounded-xl font-semibold"
+        >
+          Login
+        </button>
 
-        <button type="submit">Login</button>
       </form>
     </div>
-  );
+  </div>
+);
 }
 
 export default Login;
