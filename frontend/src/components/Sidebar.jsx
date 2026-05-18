@@ -1,36 +1,70 @@
+
 function Sidebar({ setUser }) {
 
+  const location = window.location.pathname;
+  
   const handleLogout = () => {
     localStorage.removeItem("token");
     setUser(null);
   };
 
+  const navItem =
+    "block w-full px-4 py-3 rounded-xl transition text-sm font-medium";
+
+  const active =
+    "bg-white text-black";
+
+  const inactive =
+    "text-gray-400 hover:text-white hover:bg-white/5";
+
   return (
-    <div className="w-64 bg-gray-900 border-r border-gray-800 p-6">
+    <div className="w-64 min-h-screen bg-black border-r border-white/10 px-6 py-8 flex flex-col justify-between">
 
-     <h1 className="text-5xl font-bold font-['Space_Grotesk']">
-        Campus Platform
-      </h1>
+      <div>
 
-      <div className="space-y-4">
+        {/* Logo */}
+        <div className="mb-12">
 
-        <button className="w-full text-left bg-blue-600 p-3 rounded-xl">
-          Dashboard
-        </button>
+          <h1 className="text-2xl font-semibold tracking-tight font-['Space_Grotesk']">
+            Campus
+          </h1>
 
-        <button className="w-full text-left hover:bg-gray-800 p-3 rounded-xl transition">
-          Notes
-        </button>
+          <p className="text-sm text-gray-500 mt-1">
+            Student productivity platform
+          </p>
 
-        <button className="w-full text-left hover:bg-gray-800 p-3 rounded-xl transition">
-          Events
-        </button>
+        </div>
+
+        {/* Navigation */}
+        <nav className="space-y-2">
+
+        <button
+  className={`${navItem} ${window.location.pathname === "/dashboard" ? active : inactive}`}
+>
+  Dashboard
+</button>
+
+          <button
+  className={`${navItem} ${window.location.pathname === "/notes" ? active : inactive}`}
+>
+  Notes
+</button>
+
+        </nav>
 
       </div>
 
+      {/* Logout */}
       <button
         onClick={handleLogout}
-        className="mt-10 w-full bg-red-600 hover:bg-red-700 p-3 rounded-xl transition"
+        className="
+          text-sm
+          text-gray-500
+          hover:text-red-400
+          transition
+          text-left
+          px-4
+        "
       >
         Logout
       </button>
