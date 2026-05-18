@@ -1,16 +1,39 @@
+import { motion } from "framer-motion";
+
 function StatsCard({ title, value, color }) {
   return (
-    <div className="bg-gray-900 p-6 rounded-2xl border border-gray-800">
-
-      <h2 className="text-xl font-semibold mb-2">
+    <motion.div
+      whileHover={{
+        scale: 1.03,
+      }}
+      initial={{
+        opacity: 0,
+        y: 40,
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+      }}
+      transition={{
+        duration: 0.5,
+      }}
+      className="
+        bg-white/5
+        backdrop-blur-lg
+        border border-white/10
+        p-6
+        rounded-3xl
+        shadow-2xl
+      "
+    >
+      <h2 className="text-lg text-gray-400 mb-2">
         {title}
       </h2>
 
       <p className={`text-5xl font-bold ${color}`}>
         {value}
       </p>
-
-    </div>
+    </motion.div>
   );
 }
 
