@@ -106,17 +106,29 @@ const [content, setContent] = useState("");
       {/* Empty State */}
       {notes.length === 0 && (
 
-        <div className="border border-white/10 rounded-3xl p-10 text-center">
+        <motion.div
+  initial={{ opacity: 0, scale: 0.96 }}
+  animate={{ opacity: 1, scale: 1 }}
+  transition={{ duration: 0.35 }}
+  className="
+    border border-white/10
+    rounded-[32px]
+    p-14
+    text-center
+    bg-white/[0.02]
+    shadow-[0_0_50px_rgba(255,255,255,0.02)]
+  "
+>
 
           <h2 className="text-2xl font-semibold mb-3">
             No notes yet
           </h2>
 
-          <p className="text-gray-500">
+          <p className="text-gray-500 max-w-md mx-auto leading-relaxed">
             Start creating your first note.
           </p>
 
-        </div>
+        </motion.div>
 
       )}
         <form
@@ -155,6 +167,7 @@ const [content, setContent] = useState("");
         py-3
         outline-none
         focus:border-white/30
+        focus:bg-white/[0.03]
         transition
       "
     />
@@ -188,6 +201,7 @@ const [content, setContent] = useState("");
         rounded-2xl
         font-medium
         hover:scale-[1.02]
+        active:scale-[0.98]
 hover:opacity-90
         transition
       "
@@ -225,7 +239,7 @@ hover:opacity-90
 "
           >
 
-            <h2 className="text-2xl font-semibold mb-3">
+            <h2 className="text-3xl font-semibold mb-4 font-['Space_Grotesk']">
               {note.title}
             </h2>
 
