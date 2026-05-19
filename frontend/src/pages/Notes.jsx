@@ -6,6 +6,8 @@ function Notes() {
 
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [title, setTitle] = useState("");
+const [content, setContent] = useState("");
 
   useEffect(() => {
 
@@ -41,6 +43,40 @@ function Notes() {
     }
 
   };
+
+  const addNote = async (e) => {
+
+  e.preventDefault();
+
+  try {
+
+    const token = localStorage.getItem("token");
+
+    const response = await axios.post(
+      "http://localhost:5000/api/notes",
+      {
+        title,
+        content,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    setNotes([response.data.note, ...notes]);
+
+    setTitle("");
+    setContent("");
+
+  } catch (error) {
+
+    console.error(error);
+
+  }
+
+};
 
   if (loading) {
     return (
@@ -83,7 +119,79 @@ function Notes() {
         </div>
 
       )}
+        <form
+  onSubmit={addNote}
+  className="
+    border border-white/10
+    rounded-3xl
+    p-6
+    mb-10
+    bg-white/[0.02]
+  "
+>
 
+  <h2 className="text-2xl font-semibold mb-6">
+    Create Note
+  </h2>
+
+  <div className="space-y-4">
+
+    <input
+      type="text"
+      placeholder="Note title"
+      value={title}
+      onChange={(e) => setTitle(e.target.value)}
+      className="
+        w-full
+        bg-black
+        border border-white/10
+        rounded-2xl
+        px-4
+        py-3
+        outline-none
+        focus:border-white/30
+        transition
+      "
+    />
+
+    <textarea
+      placeholder="Write something..."
+      value={content}
+      onChange={(e) => setContent(e.target.value)}
+      rows="5"
+      className="
+        w-full
+        bg-black
+        border border-white/10
+        rounded-2xl
+        px-4
+        py-3
+        outline-none
+        focus:border-white/30
+        transition
+        resize-none
+      "
+    />
+
+    <button
+      type="submit"
+      className="
+        bg-white
+        text-black
+        px-6
+        py-3
+        rounded-2xl
+        font-medium
+        hover:opacity-80
+        transition
+      "
+    >
+      Create Note
+    </button>
+
+  </div>
+
+</form>
       {/* Notes Grid */}
       <div className="grid grid-cols-3 gap-6">
 
