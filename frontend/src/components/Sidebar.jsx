@@ -1,8 +1,9 @@
+import { Link, useLocation } from "react-router-dom";
 
 function Sidebar({ setUser }) {
 
-  const location = window.location.pathname;
-  
+  const location = useLocation();
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     setUser(null);
@@ -18,11 +19,12 @@ function Sidebar({ setUser }) {
     "text-gray-400 hover:text-white hover:bg-white/5";
 
   return (
+
     <div className="w-64 min-h-screen bg-black border-r border-white/10 px-6 py-8 flex flex-col justify-between">
 
       <div>
 
-        {/* Logo */}
+        {/* Branding */}
         <div className="mb-12">
 
           <h1 className="text-2xl font-semibold tracking-tight font-['Space_Grotesk']">
@@ -38,17 +40,27 @@ function Sidebar({ setUser }) {
         {/* Navigation */}
         <nav className="space-y-2">
 
-        <button
-  className={`${navItem} ${window.location.pathname === "/dashboard" ? active : inactive}`}
->
-  Dashboard
-</button>
+          <Link
+            to="/dashboard"
+            className={`${navItem} ${
+              location.pathname === "/dashboard"
+                ? active
+                : inactive
+            }`}
+          >
+            Dashboard
+          </Link>
 
-          <button
-  className={`${navItem} ${window.location.pathname === "/notes" ? active : inactive}`}
->
-  Notes
-</button>
+          <Link
+            to="/notes"
+            className={`${navItem} ${
+              location.pathname === "/notes"
+                ? active
+                : inactive
+            }`}
+          >
+            Notes
+          </Link>
 
         </nav>
 
