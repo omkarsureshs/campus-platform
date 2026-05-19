@@ -1,7 +1,16 @@
-function AppLayout() {
+import Sidebar from "./Sidebar";
+
+function AppLayout({ children, setUser }) {
+
   return (
-    <div className="text-white text-5xl p-20">
-      APP LAYOUT WORKING
+    <div className="min-h-screen bg-black text-white flex">
+
+      <Sidebar setUser={setUser} />
+
+      <main className="flex-1 p-10 overflow-y-auto">
+        {children}
+      </main>
+
     </div>
   );
 }
