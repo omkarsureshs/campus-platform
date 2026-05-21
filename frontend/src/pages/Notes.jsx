@@ -185,16 +185,23 @@ const editNote = (note) => {
     text-center
     bg-white/[0.02]
     shadow-[0_0_50px_rgba(255,255,255,0.02)]
+    hover:border-white/20
+hover:bg-white/[0.04]
+transition-all
+duration-300
   "
 >
+<div className="text-6xl mb-6">
+  🧠
+</div>
+          <h2 className="text-3xl font-semibold mb-4">
+  Your knowledge hub starts here ✨
+</h2>
 
-          <h2 className="text-2xl font-semibold mb-3">
-            No notes yet
-          </h2>
-
-          <p className="text-gray-500 max-w-md mx-auto leading-relaxed">
-            Start creating your first note.
-          </p>
+         <p className="text-gray-500 max-w-lg mx-auto leading-relaxed text-lg">
+  Capture ideas, organize thoughts, and build your personal
+  second brain with beautifully structured notes.
+</p>
 
         </motion.div>
 
