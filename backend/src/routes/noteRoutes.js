@@ -55,5 +55,37 @@ router.get("/", authMiddleware, async (req, res) => {
     });
   }
 });
+router.delete("/:id", authMiddleware, async (req, res) => {
+
+  try {
+
+    const { id } = req.params;
+
+    await pool.query(
+      `
+      DELETE FROM notes
+      WHERE id = $1
+      AND user_id = $2
+      `,
+      [id, req.user.id]
+    );
+
+    res.json({
+      success: true,
+      message: "Note deleted",
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+
+  }
+
+});
 
 module.exports = router;

@@ -86,6 +86,31 @@ const [content, setContent] = useState("");
     );
   }
 
+const deleteNote = async (id) => {
+
+  try {
+
+    const token = localStorage.getItem("token");
+
+    await axios.delete(
+      `http://localhost:5000/api/notes/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    setNotes(notes.filter((note) => note.id !== id));
+
+  } catch (error) {
+
+    console.error(error);
+
+  }
+
+};
+
   return (
 
     <div>
@@ -217,40 +242,55 @@ hover:opacity-90
 
         {notes.map((note, index) => (
 
-          <motion.div
-            key={note.id}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-  duration: 0.35,
-  delay: index * 0.05,
-}}
-            className="
-  border border-white/10
-  bg-white/[0.03]
-  rounded-3xl
-  p-6
-  hover:-translate-y-1
-  hover:border-white/20
-  hover:bg-white/[0.05]
-  transition-all
-  duration-300
-  shadow-[0_0_40px_rgba(255,255,255,0.03)]
-"
-          >
+         <motion.div
+  key={note.id}
+  initial={{ opacity: 0, y: 15 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{
+    duration: 0.35,
+    delay: index * 0.05,
+  }}
+  className="
+    border border-white/10
+    bg-white/[0.03]
+    rounded-3xl
+    p-6
+    hover:-translate-y-1
+    hover:border-white/20
+    hover:bg-white/[0.05]
+    transition-all
+    duration-300
+    shadow-[0_0_40px_rgba(255,255,255,0.03)]
+  "
+>
 
-            <h2 className="text-3xl font-semibold mb-4 font-['Space_Grotesk']">
-              {note.title}
-            </h2>
+  <h2 className="text-3xl font-semibold mb-4 font-['Space_Grotesk']">
+    {note.title}
+  </h2>
 
-            <p className="text-gray-400 leading-relaxed">
-              {note.content}
-            </p>
-            <p className="text-xs text-gray-600 mt-6">
-  {new Date(note.created_at).toLocaleDateString()}
-</p>
+  <p className="text-gray-400 leading-relaxed">
+    {note.content}
+  </p>
 
-          </motion.div>
+  <p className="text-xs text-gray-600 mt-6">
+    {new Date(note.created_at).toLocaleDateString()}
+  </p>
+
+  <button
+    onClick={() => deleteNote(note.id)}
+    className="
+      mt-4
+      text-sm
+      text-red-400
+      hover:text-red-300
+      hover:translate-x-1
+      transition
+    "
+  >
+    Delete
+  </button>
+
+</motion.div>
 
         ))}
 
