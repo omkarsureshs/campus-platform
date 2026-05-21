@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
+import toast from "react-hot-toast";
 
 function Notes() {
 
@@ -9,6 +10,7 @@ function Notes() {
   const [title, setTitle] = useState("");
 const [content, setContent] = useState("");
 const [editingId, setEditingId] = useState(null);
+const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
 
@@ -36,6 +38,7 @@ const [editingId, setEditingId] = useState(null);
     } catch (error) {
 
       console.error(error);
+      toast.error("Something went wrong");
 
     } finally {
 
@@ -48,7 +51,7 @@ const [editingId, setEditingId] = useState(null);
  const addNote = async (e) => {
 
   e.preventDefault();
-
+setSubmitting(true);
   try {
 
     const token = localStorage.getItem("token");
@@ -77,6 +80,7 @@ const [editingId, setEditingId] = useState(null);
       );
 
       setEditingId(null);
+      toast.success("Note updated");
 
     } else {
 
@@ -94,6 +98,7 @@ const [editingId, setEditingId] = useState(null);
       );
 
       setNotes([response.data.note, ...notes]);
+      toast.success("Note created");
 
     }
 
@@ -103,8 +108,13 @@ const [editingId, setEditingId] = useState(null);
   } catch (error) {
 
     console.error(error);
-
+    toast.error("Something went wrong");
   }
+  finally {
+
+  setSubmitting(false);
+
+}
 
 };
 
@@ -132,10 +142,12 @@ const deleteNote = async (id) => {
     );
 
     setNotes(notes.filter((note) => note.id !== id));
+    toast.success("Note deleted");
 
   } catch (error) {
 
     console.error(error);
+    toast.error("Something went wrong");
 
   }
 
@@ -257,6 +269,7 @@ const editNote = (note) => {
 
     <button
       type="submit"
+      disabled={submitting}
       className="
         bg-white
         text-black
@@ -268,9 +281,16 @@ const editNote = (note) => {
         active:scale-[0.98]
 hover:opacity-90
         transition
+        disabled:opacity-50
+disabled:cursor-not-allowed
+disabled:hover:scale-100
       "
     >
-      {editingId ? "Update Note" : "Create Note"}
+      {submitting
+  ? "Saving..."
+  : editingId
+    ? "Update Note"
+    : "Create Note"}
     </button>
 
   </div>
