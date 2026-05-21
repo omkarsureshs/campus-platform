@@ -118,14 +118,6 @@ setSubmitting(true);
 
 };
 
-  if (loading) {
-    return (
-      <div className="text-white text-xl">
-        Loading notes...
-      </div>
-    );
-  }
-
 const deleteNote = async (id) => {
 
   try {
@@ -295,9 +287,48 @@ disabled:hover:scale-100
 
   </div>
 
+
 </form>
-      {/* Notes Grid */}
-      <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+{loading ? (
+
+  <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 mt-8">
+
+    {[...Array(6)].map((_, index) => (
+
+      <div
+        key={index}
+        className="
+          border border-white/10
+          bg-white/[0.03]
+          rounded-3xl
+          p-6
+          animate-pulse
+          shadow-[0_0_40px_rgba(255,255,255,0.02)]
+        "
+      >
+
+        <div className="h-8 bg-white/10 rounded-xl w-2/3 mb-6"></div>
+
+        <div className="space-y-3">
+
+          <div className="h-4 bg-white/10 rounded"></div>
+          <div className="h-4 bg-white/10 rounded"></div>
+          <div className="h-4 bg-white/10 rounded w-5/6"></div>
+
+        </div>
+
+        <div className="h-3 bg-white/10 rounded w-1/4 mt-8"></div>
+
+      </div>
+
+    ))}
+
+  </div>
+
+) : (
+
+  <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 mt-8">
 
         {notes.map((note, index) => (
 
@@ -367,8 +398,9 @@ disabled:hover:scale-100
         ))}
 
       </div>
-
+)}
     </div>
+    
   );
 }
 
