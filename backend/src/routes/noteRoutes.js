@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-
 const pool = require("../config/db");
 const authMiddleware = require("../middleware/authMiddleware");
 
@@ -73,6 +72,43 @@ router.delete("/:id", authMiddleware, async (req, res) => {
     res.json({
       success: true,
       message: "Note deleted",
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+
+  }
+
+});
+
+router.put("/:id", authMiddleware, async (req, res) => {
+
+  try {
+
+    const { title, content } = req.body;
+    const { id } = req.params;
+
+    const updatedNote = await pool.query(
+      `
+      UPDATE notes
+      SET title = $1,
+          content = $2
+      WHERE id = $3
+      AND user_id = $4
+      RETURNING *
+      `,
+      [title, content, id, req.user.id]
+    );
+
+    res.json({
+      success: true,
+      note: updatedNote.rows[0],
     });
 
   } catch (error) {

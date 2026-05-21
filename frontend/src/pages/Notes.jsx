@@ -8,6 +8,7 @@ function Notes() {
   const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState("");
 const [content, setContent] = useState("");
+const [editingId, setEditingId] = useState(null);
 
   useEffect(() => {
 
@@ -44,7 +45,7 @@ const [content, setContent] = useState("");
 
   };
 
-  const addNote = async (e) => {
+ const addNote = async (e) => {
 
   e.preventDefault();
 
@@ -52,20 +53,49 @@ const [content, setContent] = useState("");
 
     const token = localStorage.getItem("token");
 
-    const response = await axios.post(
-      "http://localhost:5000/api/notes",
-      {
-        title,
-        content,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    if (editingId) {
 
-    setNotes([response.data.note, ...notes]);
+      const response = await axios.put(
+        `http://localhost:5000/api/notes/${editingId}`,
+        {
+          title,
+          content,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setNotes(
+        notes.map((note) =>
+          note.id === editingId
+            ? response.data.note
+            : note
+        )
+      );
+
+      setEditingId(null);
+
+    } else {
+
+      const response = await axios.post(
+        "http://localhost:5000/api/notes",
+        {
+          title,
+          content,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setNotes([response.data.note, ...notes]);
+
+    }
 
     setTitle("");
     setContent("");
@@ -108,6 +138,15 @@ const deleteNote = async (id) => {
     console.error(error);
 
   }
+
+};
+
+const editNote = (note) => {
+
+  setTitle(note.title);
+  setContent(note.content);
+
+  setEditingId(note.id);
 
 };
 
@@ -231,7 +270,7 @@ hover:opacity-90
         transition
       "
     >
-      Create Note
+      {editingId ? "Update Note" : "Create Note"}
     </button>
 
   </div>
@@ -275,7 +314,20 @@ hover:opacity-90
   <p className="text-xs text-gray-600 mt-6">
     {new Date(note.created_at).toLocaleDateString()}
   </p>
-
+<button
+  onClick={() => editNote(note)}
+  className="
+    mt-4
+    mr-4
+    text-sm
+    text-blue-400
+    hover:text-blue-300
+    hover:translate-x-1
+    transition
+  "
+>
+  Edit
+</button>
   <button
     onClick={() => deleteNote(note.id)}
     className="
