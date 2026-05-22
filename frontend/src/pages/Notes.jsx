@@ -3,6 +3,8 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import NoteCard from "../components/NoteCard";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 function Notes() {
 

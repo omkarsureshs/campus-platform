@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 function NoteCard({
   note,
@@ -34,9 +36,32 @@ function NoteCard({
         {note.title}
       </h2>
 
-      <p className="text-gray-400 leading-relaxed">
-        {note.content}
-      </p>
+      <div
+  className="
+    prose
+    prose-invert
+    max-w-none
+    leading-relaxed
+
+    prose-headings:text-white
+    prose-p:text-gray-300
+    prose-strong:text-white
+    prose-em:text-gray-200
+    prose-code:text-blue-300
+    prose-li:text-gray-300
+
+    prose-pre:bg-black
+    prose-pre:border
+    prose-pre:border-white/10
+    prose-pre:rounded-2xl
+  "
+>
+
+  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+    {note.content}
+  </ReactMarkdown>
+
+</div>
 
       <p className="text-xs text-gray-600 mt-6">
         {new Date(note.created_at).toLocaleDateString()}
