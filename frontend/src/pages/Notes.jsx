@@ -257,6 +257,9 @@ duration-300
     Create Note
   </h2>
 
+  <div className="grid lg:grid-cols-2 gap-6">
+
+  {/* Editor Side */}
   <div className="space-y-4">
 
     <input
@@ -279,10 +282,10 @@ duration-300
     />
 
     <textarea
-      placeholder="Write something..."
+      placeholder="Write your markdown here..."
       value={content}
       onChange={(e) => setContent(e.target.value)}
-      rows="5"
+      rows="14"
       className="
         w-full
         bg-black
@@ -297,34 +300,79 @@ duration-300
       "
     />
 
-    <button
-      type="submit"
-      disabled={submitting}
+  </div>
+
+  {/* Preview Side */}
+  <div
+    className="
+      border border-white/10
+      rounded-2xl
+      bg-black/40
+      p-6
+      overflow-auto
+      min-h-[350px]
+    "
+  >
+
+    <p className="text-sm text-gray-500 mb-4">
+      Live Preview
+    </p>
+
+    <div
       className="
-        bg-white
-        text-black
-        px-6
-        py-3
-        rounded-2xl
-        font-medium
-        hover:scale-[1.02]
-        active:scale-[0.98]
-hover:opacity-90
-        transition
-        disabled:opacity-50
-disabled:cursor-not-allowed
-disabled:hover:scale-100
+        prose
+        prose-invert
+        max-w-none
+
+        prose-headings:text-white
+        prose-p:text-gray-300
+        prose-strong:text-white
+        prose-em:text-gray-200
+        prose-code:text-blue-300
+        prose-li:text-gray-300
+
+        prose-pre:bg-black
+        prose-pre:border
+        prose-pre:border-white/10
+        prose-pre:rounded-2xl
       "
     >
-      {submitting
-  ? "Saving..."
-  : editingId
-    ? "Update Note"
-    : "Create Note"}
-    </button>
+
+      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+        {content || "Start typing markdown..."}
+      </ReactMarkdown>
+
+    </div>
 
   </div>
 
+</div>
+<button
+  type="submit"
+  disabled={submitting}
+  className="
+    mt-6
+    bg-white
+    text-black
+    px-6
+    py-3
+    rounded-2xl
+    font-medium
+    hover:scale-[1.02]
+    active:scale-[0.98]
+    hover:opacity-90
+    transition
+    disabled:opacity-50
+    disabled:cursor-not-allowed
+    disabled:hover:scale-100
+  "
+>
+  {submitting
+    ? "Saving..."
+    : editingId
+      ? "Update Note"
+      : "Create Note"}
+</button>
 
 </form>
 {loading ? (
