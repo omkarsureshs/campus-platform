@@ -325,7 +325,6 @@ disabled:hover:scale-100
 
 
 </form>
-
 {loading ? (
 
   <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 mt-8">
@@ -364,24 +363,63 @@ disabled:hover:scale-100
 
 ) : (
 
-  <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 mt-8">
+  <>
+  
+    {filteredNotes.length === 0 ? (
+
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="
+          border border-white/10
+          bg-white/[0.03]
+          rounded-3xl
+          p-12
+          text-center
+          mt-8
+        "
+      >
+
+        <div className="text-5xl mb-5">
+          🔍
+        </div>
+
+        <h2 className="text-2xl font-semibold mb-3">
+          No matching notes found
+        </h2>
+
+        <p className="text-gray-500">
+          Try searching with different keywords.
+        </p>
+
+      </motion.div>
+
+    ) : (
+
+      <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 mt-8">
 
         {filteredNotes.map((note, index) => (
 
-         <NoteCard
-  key={note.id}
-  note={note}
-  index={index}
-  deleteNote={deleteNote}
-  editNote={editNote}
-/>
+          <NoteCard
+            key={note.id}
+            note={note}
+            index={index}
+            deleteNote={deleteNote}
+            editNote={editNote}
+          />
 
         ))}
 
-      </div>
+            </div>
+
+    )}
+
+  </>
+
 )}
+
     </div>
-    
+
   );
 }
 
