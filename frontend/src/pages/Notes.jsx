@@ -12,6 +12,7 @@ function Notes() {
 const [content, setContent] = useState("");
 const [editingId, setEditingId] = useState(null);
 const [submitting, setSubmitting] = useState(false);
+const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
 
@@ -155,6 +156,11 @@ const editNote = (note) => {
 
 };
 
+const filteredNotes = notes.filter((note) =>
+  note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  note.content.toLowerCase().includes(searchQuery.toLowerCase())
+);
+
   return (
 
     <div>
@@ -222,7 +228,29 @@ duration-300
   shadow-[0_0_40px_rgba(255,255,255,0.03)]
 "
 >
+<div className="mb-8">
 
+  <input
+    type="text"
+    placeholder="Search notes..."
+    value={searchQuery}
+    onChange={(e) => setSearchQuery(e.target.value)}
+    className="
+      w-full
+      bg-white/[0.03]
+      border border-white/10
+      rounded-2xl
+      px-5
+      py-4
+      outline-none
+      focus:border-white/20
+      focus:bg-white/[0.05]
+      transition-all
+      duration-300
+    "
+  />
+
+</div>
   <h2 className="text-2xl font-semibold mb-6">
     Create Note
   </h2>
@@ -338,7 +366,7 @@ disabled:hover:scale-100
 
   <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 mt-8">
 
-        {notes.map((note, index) => (
+        {filteredNotes.map((note, index) => (
 
          <NoteCard
   key={note.id}
