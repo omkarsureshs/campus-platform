@@ -91,19 +91,20 @@ router.put("/:id", authMiddleware, async (req, res) => {
 
   try {
 
-    const { title, content } = req.body;
+    const { title, content, tags } = req.body;
     const { id } = req.params;
 
     const updatedNote = await pool.query(
       `
       UPDATE notes
       SET title = $1,
-          content = $2
-      WHERE id = $3
-      AND user_id = $4
+          content = $2,
+          tags = $3
+      WHERE id = $4
+      AND user_id = $5
       RETURNING *
       `,
-      [title, content, id, req.user.id]
+      [title, content, tags, id, req.user.id]
     );
 
     res.json({
