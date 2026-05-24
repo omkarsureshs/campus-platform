@@ -5,15 +5,15 @@ const authMiddleware = require("../middleware/authMiddleware");
 
 router.post("/", authMiddleware, async (req, res) => {
   try {
-    const { title, content } = req.body;
+    const { title, content, tags } = req.body;
 
     const newNote = await pool.query(
       `
-      INSERT INTO notes (title, content, user_id)
-      VALUES ($1, $2, $3)
+      INSERT INTO notes (title, content, user_id, tags)
+      VALUES ($1, $2, $3, $4)
       RETURNING *
       `,
-      [title, content, req.user.id]
+      [title, content, req.user.id, tags]
     );
 
     res.json({

@@ -61,6 +61,30 @@ function NoteCard({
     {note.content}
   </ReactMarkdown>
 
+<div className="flex flex-wrap gap-2 mt-5">
+
+  {note.tags?.map((tag, index) => (
+
+    <span
+      key={index}
+      className="
+        px-3
+        py-1
+        text-xs
+        rounded-full
+        bg-white/10
+        border border-white/10
+        text-gray-300
+        hover:bg-white/20
+        transition
+      "
+    >
+      #{tag}
+    </span>
+
+  ))}
+
+</div>
 </div>
 
       <p className="text-xs text-gray-600 mt-6">

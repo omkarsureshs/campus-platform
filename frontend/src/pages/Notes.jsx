@@ -15,6 +15,7 @@ const [content, setContent] = useState("");
 const [editingId, setEditingId] = useState(null);
 const [submitting, setSubmitting] = useState(false);
 const [searchQuery, setSearchQuery] = useState("");
+const [tags, setTags] = useState("");
 
   useEffect(() => {
 
@@ -60,6 +61,12 @@ setSubmitting(true);
 
     const token = localStorage.getItem("token");
 
+
+    const tagsArray = tags
+  .split(",")
+  .map((tag) => tag.trim())
+  .filter((tag) => tag !== "");
+
     if (editingId) {
 
       const response = await axios.put(
@@ -67,6 +74,7 @@ setSubmitting(true);
         {
           title,
           content,
+          tags: tagsArray,
         },
         {
           headers: {
@@ -93,6 +101,7 @@ setSubmitting(true);
         {
           title,
           content,
+          tags: tagsArray,
         },
         {
           headers: {
@@ -108,6 +117,7 @@ setSubmitting(true);
 
     setTitle("");
     setContent("");
+    setTags("");
 
   } catch (error) {
 
@@ -153,15 +163,24 @@ const editNote = (note) => {
 
   setTitle(note.title);
   setContent(note.content);
-
+setTags(note.tags.join(", "));
   setEditingId(note.id);
 
 };
 
-const filteredNotes = notes.filter((note) =>
-  note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-  note.content.toLowerCase().includes(searchQuery.toLowerCase())
-);
+const filteredNotes = notes.filter((note) => {
+
+  const query = searchQuery.toLowerCase();
+
+  return (
+    note.title.toLowerCase().includes(query) ||
+    note.content.toLowerCase().includes(query) ||
+    note.tags?.some((tag) =>
+      tag.toLowerCase().includes(query)
+    )
+  );
+
+});
 
   return (
 
@@ -280,7 +299,24 @@ duration-300
         transition
       "
     />
-
+    <input
+  type="text"
+  placeholder="Tags (comma separated)"
+  value={tags}
+  onChange={(e) => setTags(e.target.value)}
+  className="
+    w-full
+    bg-black
+    border border-white/10
+    rounded-2xl
+    px-4
+    py-3
+    outline-none
+    focus:border-white/30
+    focus:bg-white/[0.03]
+    transition
+  "
+/>
     <textarea
       placeholder="Write your markdown here..."
       value={content}
