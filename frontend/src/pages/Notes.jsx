@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import NoteCard from "../components/NoteCard";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { AnimatePresence } from "framer-motion";
 
 function Notes() {
 
@@ -234,21 +235,7 @@ duration-300
         </motion.div>
 
       )}
-        <form
-  onSubmit={addNote}
-  className="
-  border border-white/10
-  bg-white/[0.03]
-  rounded-3xl
-  p-6
-  hover:-translate-y-1
-  hover:border-white/20
-  hover:bg-white/[0.05]
-  transition-all
-  duration-300
-  shadow-[0_0_40px_rgba(255,255,255,0.03)]
-"
->
+
 <div className="mb-8">
 
   <input
@@ -272,6 +259,31 @@ duration-300
   />
 
 </div>
+<AnimatePresence>
+
+      {searchQuery.trim() === "" && (
+        <motion.form
+  initial={{ opacity: 0, y: -10 }}
+  animate={{ opacity: 1, y: 0 }}
+  exit={{ opacity: 0, y: -10 }}
+  transition={{ duration: 0.25 }}
+
+        
+  onSubmit={addNote}
+  className="
+  border border-white/10
+  bg-white/[0.03]
+  rounded-3xl
+  p-6
+  hover:-translate-y-1
+  hover:border-white/20
+  hover:bg-white/[0.05]
+  transition-all
+  duration-300
+  shadow-[0_0_40px_rgba(255,255,255,0.03)]
+"
+>
+
   <h2 className="text-2xl font-semibold mb-6">
     Create Note
   </h2>
@@ -410,7 +422,9 @@ duration-300
       : "Create Note"}
 </button>
 
-</form>
+</motion.form>
+)}
+</AnimatePresence>
 {loading ? (
 
   <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 mt-8">
