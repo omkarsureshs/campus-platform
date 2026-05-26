@@ -7,6 +7,7 @@ function NoteCard({
   index,
   deleteNote,
   editNote,
+  togglePin,
 }) {
 
   return (
@@ -90,7 +91,19 @@ function NoteCard({
       <p className="text-xs text-gray-600 mt-6">
         {new Date(note.created_at).toLocaleDateString()}
       </p>
-
+<button
+  onClick={() => togglePin(note.id)}
+  className="
+    mt-4
+    mr-4
+    text-sm
+    text-yellow-400
+    hover:text-yellow-300
+    transition
+  "
+>
+  {note.pinned ? "📌 Pinned" : "📍 Pin"}
+</button>
       <button
         onClick={() => editNote(note)}
         className="

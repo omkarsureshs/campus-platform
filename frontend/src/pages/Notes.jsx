@@ -160,6 +160,41 @@ const deleteNote = async (id) => {
 
 };
 
+const togglePin = async (id) => {
+
+  try {
+
+    const token = localStorage.getItem("token");
+
+    const response = await axios.patch(
+      `http://localhost:5000/api/notes/${id}/pin`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    setNotes(
+      notes.map((note) =>
+        note.id === id
+          ? response.data.note
+          : note
+      )
+    );
+
+    toast.success("Pin updated");
+
+  } catch (error) {
+
+    console.error(error);
+    toast.error("Something went wrong");
+
+  }
+
+};
+
 const editNote = (note) => {
 
   setTitle(note.title);
@@ -506,6 +541,7 @@ duration-300
             index={index}
             deleteNote={deleteNote}
             editNote={editNote}
+            togglePin={togglePin}
           />
 
         ))}

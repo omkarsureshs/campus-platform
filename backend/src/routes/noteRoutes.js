@@ -125,4 +125,38 @@ router.put("/:id", authMiddleware, async (req, res) => {
 
 });
 
+router.patch("/:id/pin", authMiddleware, async (req, res) => {
+
+  try {
+
+    const { id } = req.params;
+
+    const updatedNote = await pool.query(
+      `
+      UPDATE notes
+      SET pinned = NOT pinned
+      WHERE id = $1
+      AND user_id = $2
+      RETURNING *
+      `,
+      [id, req.user.id]
+    );
+
+    res.json({
+      success: true,
+      note: updatedNote.rows[0],
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+
+  }
+
+});
 module.exports = router;
