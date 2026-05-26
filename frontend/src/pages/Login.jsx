@@ -4,14 +4,16 @@ import axios from "axios";
 function Login({ setUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
       const response = await axios.post(
-        "https://campus-platform-hp24.onrender.com/api/auth/login",
+        "https://campus-platform-hp24.onrender.com/api/auth/register",
         {
+          name,
           email,
           password,
         }
@@ -56,7 +58,12 @@ alert("Protected route accessed!");
       </h2>
 
       <form onSubmit={handleLogin} className="space-y-5">
-
+        <input
+  type="text"
+  placeholder="Name"
+  value={name}
+  onChange={(e) => setName(e.target.value)}
+/>
         <input
           type="email"
           placeholder="Enter email"
