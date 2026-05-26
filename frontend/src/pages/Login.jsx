@@ -10,7 +10,7 @@ function Login({ setUser }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        "http://https://campus-platform-hp24.onrender.com/api/auth/login",
         {
           email,
           password,
@@ -28,7 +28,7 @@ alert("Login successful!");
 localStorage.setItem("token", token);
 
 const profileResponse = await axios.get(
-  "http://localhost:5000/api/profile",
+  "http://https://campus-platform-hp24.onrender.com/api/profile",
   {
     headers: {
       Authorization: `Bearer ${token}`,

@@ -31,7 +31,7 @@ const [tags, setTags] = useState("");
       const token = localStorage.getItem("token");
 
       const response = await axios.get(
-        "http://localhost:5000/api/notes",
+        "http://https://campus-platform-hp24.onrender.com/api/notes",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -71,7 +71,7 @@ setSubmitting(true);
     if (editingId) {
 
       const response = await axios.put(
-        `http://localhost:5000/api/notes/${editingId}`,
+        `http://https://campus-platform-hp24.onrender.com/api/notes/${editingId}`,
         {
           title,
           content,
@@ -98,7 +98,7 @@ setSubmitting(true);
     } else {
 
       const response = await axios.post(
-        "http://localhost:5000/api/notes",
+        "http://https://campus-platform-hp24.onrender.com/api/notes",
         {
           title,
           content,
@@ -140,7 +140,7 @@ const deleteNote = async (id) => {
     const token = localStorage.getItem("token");
 
     await axios.delete(
-      `http://localhost:5000/api/notes/${id}`,
+      `http://https://campus-platform-hp24.onrender.com/api/notes/${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -167,7 +167,7 @@ const togglePin = async (id) => {
     const token = localStorage.getItem("token");
 
     const response = await axios.patch(
-      `http://localhost:5000/api/notes/${id}/pin`,
+      `http://https://campus-platform-hp24.onrender.com/api/notes/${id}/pin`,
       {},
       {
         headers: {
@@ -227,7 +227,7 @@ const filteredNotes = [...notes]
     return a.pinned ? -1 : 1;
 
   });
-  
+
   return (
 
     <div>

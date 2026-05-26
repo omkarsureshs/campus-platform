@@ -33,7 +33,7 @@ function App() {
         }
 
         const response = await axios.get(
-          "http://localhost:5000/api/profile",
+          "http://https://campus-platform-hp24.onrender.com/api/profile",
           {
             headers: {
               Authorization: `Bearer ${token}`,
