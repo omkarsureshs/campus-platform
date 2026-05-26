@@ -13,24 +13,36 @@ function NoteCard({
   return (
 
     <motion.div
+      layout
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
         duration: 0.35,
         delay: index * 0.05,
       }}
-      className="
+      className={`
+  rounded-3xl
+  p-6
+  transition-all
+  duration-300
+  hover:-translate-y-1
+
+  ${
+    note.pinned
+      ? `
+        border border-yellow-500/30
+        bg-yellow-500/[0.05]
+        shadow-[0_0_50px_rgba(234,179,8,0.12)]
+      `
+      : `
         border border-white/10
         bg-white/[0.03]
-        rounded-3xl
-        p-6
-        hover:-translate-y-1
         hover:border-white/20
         hover:bg-white/[0.05]
-        transition-all
-        duration-300
         shadow-[0_0_40px_rgba(255,255,255,0.03)]
-      "
+      `
+  }
+`}
     >
 
       <h2 className="text-3xl font-semibold mb-4 font-['Space_Grotesk']">

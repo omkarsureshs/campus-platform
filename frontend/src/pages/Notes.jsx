@@ -204,20 +204,30 @@ setTags(note.tags.join(", "));
 
 };
 
-const filteredNotes = notes.filter((note) => {
+const filteredNotes = [...notes]
+  .filter((note) => {
 
-  const query = searchQuery.toLowerCase();
+    const query = searchQuery.toLowerCase();
 
-  return (
-    note.title.toLowerCase().includes(query) ||
-    note.content.toLowerCase().includes(query) ||
-    note.tags?.some((tag) =>
-      tag.toLowerCase().includes(query)
-    )
-  );
+    return (
+      note.title.toLowerCase().includes(query) ||
+      note.content.toLowerCase().includes(query) ||
+      note.tags?.some((tag) =>
+        tag.toLowerCase().includes(query)
+      )
+    );
 
-});
+  })
+  .sort((a, b) => {
 
+    if (a.pinned === b.pinned) {
+      return 0;
+    }
+
+    return a.pinned ? -1 : 1;
+
+  });
+  
   return (
 
     <div>
