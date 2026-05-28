@@ -16,3 +16,5 @@ pool.connect()
       });
   })
   .catch(err => console.error("DB CONNECTION ERROR:", err));
+
+module.exports = pool;
