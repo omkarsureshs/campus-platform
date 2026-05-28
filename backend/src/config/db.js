@@ -7,4 +7,12 @@ const pool = new Pool({
   },
 });
 
-module.exports = pool;
+pool.connect()
+  .then(client => {
+    return client.query("SELECT current_database(), current_user")
+      .then(res => {
+        console.log("CONNECTED TO DB:", res.rows);
+        client.release();
+      });
+  })
+  .catch(err => console.error("DB CONNECTION ERROR:", err));
