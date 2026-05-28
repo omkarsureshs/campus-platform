@@ -6,48 +6,58 @@ function Login({ setUser }) {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+const handleLogin = async (e) => {
+  e.preventDefault();
 
-    try {
-      const response = await axios.post(
-        "https://campus-platform-hp24.onrender.com/api/auth/register",
-        {
-          name,
-          email,
-          password,
-        }
-      );
+  try {
+    const response = await axios.post(
+      "https://campus-platform-hp24.onrender.com/api/auth/login",
+      {
+        email,
+        password,
+      }
+    );
 
-      console.log(response.data);
+    const token = response.data.token;
+    localStorage.setItem("token", token);
 
-localStorage.setItem("token", response.data.token);
+    const profileResponse = await axios.get(
+      "https://campus-platform-hp24.onrender.com/api/auth/me",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
-alert("Login successful!");
+    setUser(profileResponse.data.user);
 
-      const token = response.data.token;
-
-localStorage.setItem("token", token);
-
-const profileResponse = await axios.get(
-  "https://campus-platform-hp24.onrender.com/api/profile",
-  {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    alert("Login successful!");
+  } catch (err) {
+    console.error(err);
+    alert("Login failed");
   }
-);
+};
 
-console.log(profileResponse.data);
-setUser(profileResponse.data.user);
+const handleRegister = async (e) => {
+  e.preventDefault();
 
-alert("Protected route accessed!");
-    } catch (err) {
-      console.error(err);
+  try {
+    const res = await axios.post(
+      "https://campus-platform-hp24.onrender.com/api/auth/register",
+      {
+        name,
+        email,
+        password,
+      }
+    );
 
-      alert("Login failed");
-    }
-  };
+    alert("Registered successfully!");
+  } catch (err) {
+    console.error(err);
+    alert("Register failed");
+  }
+};
 
   return (
   <div className="min-h-screen flex items-center justify-center bg-gray-950">
