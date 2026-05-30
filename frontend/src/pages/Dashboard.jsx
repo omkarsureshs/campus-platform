@@ -51,11 +51,11 @@ function Dashboard({ user }) {
       >
 
         <h1 className="text-5xl font-bold font-['Space_Grotesk']">
-          Welcome Back 👋
+          Welcome back, {user?.name} 👋
         </h1>
 
         <p className="text-gray-400 mt-2 mb-10">
-          Logged in as {user?.email}
+          Logged in as {user?.name}
         </p>
 
       </motion.div>
