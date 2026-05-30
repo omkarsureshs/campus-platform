@@ -33,13 +33,20 @@ function App() {
         }
 
         const response = await axios.get(
-          "https://campus-platform-hp24.onrender.com/api/profile",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+  "https://campus-platform-hp24.onrender.com/api/profile",
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
+
+console.log(
+  "PROFILE DATA:",
+  response.data
+);
+
+setUser(response.data.user);
 
         setUser(response.data.user);
 

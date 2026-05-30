@@ -32,12 +32,33 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.get("/api/profile", authMiddleware, (req, res) => {
-  res.json({
-    success: true,
-    message: "Protected profile data",
-    user: req.user,
-  });
+app.get("/api/profile", authMiddleware, async (req, res) => {
+  try {
+
+    const userResult = await pool.query(
+      `
+      SELECT id, name, email
+      FROM users
+      WHERE id = $1
+      `,
+      [req.user.id]
+    );
+
+    res.json({
+      success: true,
+      user: userResult.rows[0],
+    });
+
+  } catch (err) {
+
+    console.error(err);
+
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+
+  }
 });
 
 app.listen(5000, () => {
