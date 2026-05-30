@@ -5,11 +5,13 @@ const app = express();
 const cors = require("cors");
 const authMiddleware = require("./middleware/authMiddleware");
 const noteRoutes = require("./routes/noteRoutes");
+const dashboardRoutes = require("./routes/dashboardRoutes");
 require("dotenv").config();
 app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/notes", noteRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 app.get("/", async (req, res) => {
   try {
