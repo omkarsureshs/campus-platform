@@ -61,6 +61,42 @@ app.get("/api/profile", authMiddleware, async (req, res) => {
   }
 });
 
+app.get("/api/stats", authMiddleware, async (req, res) => {
+  try {
+
+    const totalNotes = await pool.query(
+      "SELECT COUNT(*) FROM notes WHERE user_id = $1",
+      [req.user.id]
+    );
+
+    const pinnedNotes = await pool.query(
+      "SELECT COUNT(*) FROM notes WHERE user_id = $1 AND pinned = true",
+      [req.user.id]
+    );
+
+    const recentNotes = await pool.query(
+      `
+      SELECT id, title, created_at
+      FROM notes
+      WHERE user_id = $1
+      ORDER BY created_at DESC
+      LIMIT 5
+      `,
+      [req.user.id]
+    );
+
+    res.json({
+      totalNotes: Number(totalNotes.rows[0].count),
+      pinnedNotes: Number(pinnedNotes.rows[0].count),
+      recentNotes: recentNotes.rows
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 app.listen(5000, () => {
   console.log("Server running on port 5000");
 });
