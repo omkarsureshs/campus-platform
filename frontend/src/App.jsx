@@ -11,7 +11,7 @@ import {
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Notes from "./pages/Notes";
-
+import Profile from "./pages/Profile";
 import AppLayout from "./components/AppLayout";
 
 function App() {
@@ -48,8 +48,7 @@ console.log(
 
 setUser(response.data.user);
 
-        setUser(response.data.user);
-
+        
       } catch (error) {
 
         console.error(error);
@@ -99,9 +98,12 @@ setUser(response.data.user);
           path="/dashboard"
           element={
             user ? (
-              <AppLayout setUser={setUser}>
-                <Dashboard user={user} />
-              </AppLayout>
+              <AppLayout
+  setUser={setUser}
+  user={user}
+>
+  <Dashboard user={user} />
+</AppLayout>
             ) : (
               <Navigate to="/" />
             )
@@ -113,14 +115,32 @@ setUser(response.data.user);
           path="/notes"
           element={
             user ? (
-              <AppLayout setUser={setUser}>
-                <Notes />
-              </AppLayout>
+              <AppLayout
+  setUser={setUser}
+  user={user}
+>
+  <Notes />
+</AppLayout>
             ) : (
               <Navigate to="/" />
             )
           }
         />
+        <Route
+  path="/profile"
+  element={
+    user ? (
+      <AppLayout
+  setUser={setUser}
+  user={user}
+>
+  <Profile user={user} />
+</AppLayout>
+    ) : (
+      <Navigate to="/" />
+    )
+  }
+/>
 
       </Routes>
 

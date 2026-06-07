@@ -26,17 +26,22 @@ function Sidebar({
   };
 
   const navItems = [
-    {
-      label: "Dashboard",
-      path: "/dashboard",
-      icon: LayoutDashboard,
-    },
-    {
-      label: "Notes",
-      path: "/notes",
-      icon: NotebookPen,
-    },
-  ];
+  {
+    label: "Dashboard",
+    path: "/dashboard",
+    icon: LayoutDashboard,
+  },
+  {
+    label: "Notes",
+    path: "/notes",
+    icon: NotebookPen,
+  },
+  {
+    label: "Profile",
+    path: "/profile",
+    icon: UserCircle2,
+  },
+];
 
   return (
 
