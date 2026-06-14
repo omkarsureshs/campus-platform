@@ -121,7 +121,7 @@ function Login({ setUser }) {
       );
 
       toast.success(
-        "Welcome back bro!"
+        "Welcome back!"
       );
 
     } catch (err) {
