@@ -86,10 +86,11 @@ app.get("/api/stats", authMiddleware, async (req, res) => {
     );
 
     res.json({
-      totalNotes: Number(totalNotes.rows[0].count),
-      pinnedNotes: Number(pinnedNotes.rows[0].count),
-      recentNotes: recentNotes.rows
-    });
+  totalNotes: Number(totalNotes.rows[0].count),
+  pinnedNotes: Number(pinnedNotes.rows[0].count),
+  recentNotes: recentNotes.rows,
+  recentCount: recentNotes.rows.length,
+});
 
   } catch (err) {
     console.error(err);
