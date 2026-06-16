@@ -1,14 +1,69 @@
-import { UserCircle2 } from "lucide-react";
+import { useState } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 function Profile({ user }) {
 
+  const [name, setName] =
+    useState(user?.name || "");
+
+  const [nickname, setNickname] =
+    useState(user?.nickname || "");
+
+  const [saving, setSaving] =
+    useState(false);
+
   const initials =
-    user?.name
+    name
       ?.split(" ")
       .map((word) => word[0])
       .join("")
       .slice(0, 2)
       .toUpperCase();
+
+  const saveProfile = async () => {
+
+    try {
+
+      setSaving(true);
+
+      const token =
+        localStorage.getItem("token");
+
+      const response =
+        await axios.put(
+          "https://campus-platform-hp24.onrender.com/api/profile",
+          {
+            name,
+            nickname,
+          },
+          {
+            headers: {
+              Authorization:
+                `Bearer ${token}`,
+            },
+          }
+        );
+
+      toast.success(
+        "Profile updated successfully"
+      );
+
+    } catch (err) {
+
+      console.error(err);
+
+      toast.error(
+        "Failed to update profile"
+      );
+
+    } finally {
+
+      setSaving(false);
+
+    }
+
+  };
 
   return (
 
@@ -21,14 +76,12 @@ function Profile({ user }) {
         </h1>
 
         <p className="text-gray-500 mt-2">
-          Manage your account and productivity identity.
+          Manage your identity.
         </p>
 
       </div>
 
       <div className="grid lg:grid-cols-3 gap-8">
-
-        {/* Left Column */}
 
         <div
           className="
@@ -58,31 +111,16 @@ function Profile({ user }) {
           </div>
 
           <h2 className="text-3xl font-bold">
-            {user?.name}
+            {name}
           </h2>
 
           <p className="text-gray-500 mt-2">
             {user?.email}
           </p>
 
-          <div
-            className="
-              mt-6
-              px-4
-              py-2
-              rounded-xl
-              bg-white/5
-              inline-block
-            "
-          >
-            @{user?.nickname || "campus-user"}
-          </div>
-
         </div>
 
-        {/* Right Column */}
-
-        <div className="lg:col-span-2 space-y-8">
+        <div className="lg:col-span-2">
 
           <div
             className="
@@ -94,92 +132,77 @@ function Profile({ user }) {
             "
           >
 
-            <h2 className="text-2xl font-semibold mb-6">
-              Account Information
+            <h2 className="text-2xl font-semibold mb-8">
+              Edit Profile
             </h2>
 
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="space-y-6">
 
               <div>
-                <p className="text-gray-500 text-sm">
+
+                <label className="block text-sm text-gray-500 mb-2">
                   Full Name
-                </p>
+                </label>
 
-                <p className="mt-1 text-lg">
-                  {user?.name}
-                </p>
+                <input
+                  value={name}
+                  onChange={(e) =>
+                    setName(e.target.value)
+                  }
+                  className="
+                    w-full
+                    p-4
+                    rounded-2xl
+                    bg-black
+                    border
+                    border-white/10
+                  "
+                />
+
               </div>
 
               <div>
-                <p className="text-gray-500 text-sm">
-                  Email
-                </p>
 
-                <p className="mt-1 text-lg">
-                  {user?.email}
-                </p>
-              </div>
-
-              <div>
-                <p className="text-gray-500 text-sm">
+                <label className="block text-sm text-gray-500 mb-2">
                   Nickname
-                </p>
+                </label>
 
-                <p className="mt-1 text-lg">
-                  {user?.nickname || "Not set"}
-                </p>
+                <input
+                  value={nickname}
+                  onChange={(e) =>
+                    setNickname(e.target.value)
+                  }
+                  placeholder="@nickname"
+                  className="
+                    w-full
+                    p-4
+                    rounded-2xl
+                    bg-black
+                    border
+                    border-white/10
+                  "
+                />
+
               </div>
 
-              <div>
-                <p className="text-gray-500 text-sm">
-                  Joined
-                </p>
-
-                <p className="mt-1 text-lg">
-                  {user?.created_at
-                    ? new Date(
-                        user.created_at
-                      ).toLocaleDateString()
-                    : "Recently"}
-                </p>
-              </div>
+              <button
+                onClick={saveProfile}
+                disabled={saving}
+                className="
+                  px-6
+                  py-3
+                  rounded-2xl
+                  bg-white
+                  text-black
+                  font-semibold
+                "
+              >
+                {saving
+                  ? "Saving..."
+                  : "Save Changes"}
+              </button>
 
             </div>
-
-          </div>
-
-          <div
-            className="
-              bg-white/[0.03]
-              border
-              border-white/10
-              rounded-3xl
-              p-8
-            "
-          >
-
-            <h2 className="text-2xl font-semibold mb-4">
-              Productivity Identity
-            </h2>
-
-            <p className="text-gray-400">
-              Building a personal knowledge system through notes,
-              ideas and structured learning.
-            </p>
-
-            <button
-              className="
-                mt-6
-                px-6
-                py-3
-                rounded-2xl
-                bg-white
-                text-black
-                font-semibold
-              "
-            >
-              Edit Profile
-            </button>
 
           </div>
 

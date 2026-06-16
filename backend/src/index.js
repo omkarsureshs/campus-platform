@@ -37,7 +37,7 @@ app.get("/api/profile", authMiddleware, async (req, res) => {
 
     const userResult = await pool.query(
       `
-      SELECT id, name, email
+      SELECT id, name, email, nickname
       FROM users
       WHERE id = $1
       `,
@@ -59,6 +59,47 @@ app.get("/api/profile", authMiddleware, async (req, res) => {
     });
 
   }
+});
+
+
+app.put("/api/profile", authMiddleware, async (req, res) => {
+
+  try {
+
+    const { name, nickname } = req.body;
+
+    const updatedUser = await pool.query(
+      `
+      UPDATE users
+      SET
+        name = $1,
+        nickname = $2
+      WHERE id = $3
+      RETURNING id, name, email, nickname
+      `,
+      [
+        name,
+        nickname,
+        req.user.id
+      ]
+    );
+
+    res.json({
+      success: true,
+      user: updatedUser.rows[0],
+    });
+
+  } catch (err) {
+
+    console.error(err);
+
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+
+  }
+
 });
 
 app.get("/api/stats", authMiddleware, async (req, res) => {
