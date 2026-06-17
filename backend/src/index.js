@@ -1,5 +1,5 @@
 const express = require("express");
-const pool = require("./config/db");
+const pool = require("./config/db"); //added nickname to db config
 const authRoutes = require("./routes/authRoutes");
 const app = express();
 const cors = require("cors");
