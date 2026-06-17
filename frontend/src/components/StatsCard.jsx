@@ -54,7 +54,7 @@ function StatsCard({
       </p>
 
       <h2
-        className={`text-5xl font-bold ${color}`}
+        className={`text-4xl md:text-5xl font-bold ${color}`}
       >
         {value}
       </h2>

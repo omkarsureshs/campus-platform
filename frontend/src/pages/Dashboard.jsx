@@ -95,7 +95,7 @@ function Dashboard({ user }) {
         }}
       >
 
-        <h1 className="text-5xl font-bold font-['Space_Grotesk']">
+        <h1 className="text-3xl md:text-5xl font-bold font-['Space_Grotesk']">
           {greeting}, {user?.name} 👋
         </h1>
 
@@ -149,7 +149,7 @@ function Dashboard({ user }) {
           Productivity Snapshot
         </p>
 
-        <h2 className="text-5xl font-bold">
+        <h2 className="text-4xl md:text-5xl font-bold">
           {stats.totalNotes}
         </h2>
 
@@ -162,8 +162,7 @@ function Dashboard({ user }) {
 
       {/* STATS */}
 
-      <div className="grid md:grid-cols-3 gap-6 mb-10">
-
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
         <StatsCard
           title="Total Notes"
           value={stats.totalNotes}
@@ -214,7 +213,7 @@ function Dashboard({ user }) {
 
         <div className="flex justify-between items-center mb-6">
 
-          <h2 className="text-2xl font-semibold">
+          <h2 className="text-4xl md:text-5xl font-bold">
             Recent Activity
           </h2>
 

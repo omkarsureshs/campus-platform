@@ -71,7 +71,7 @@ function Profile({ user }) {
 
       <div className="mb-10">
 
-        <h1 className="text-5xl font-bold font-['Space_Grotesk']">
+        <h1 className="text-3xl md:text-5xl font-bold font-['Space_Grotesk']">
           Profile
         </h1>
 
@@ -81,7 +81,7 @@ function Profile({ user }) {
 
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
         <div
           className="

@@ -14,6 +14,8 @@ import {
 function Sidebar({
   setUser,
   user,
+  sidebarOpen,
+  setSidebarOpen,
 }) {
 
   const location = useLocation();
@@ -46,19 +48,37 @@ function Sidebar({
   return (
 
     <aside
-      className="
-        w-72
-        min-h-screen
-        bg-black
-        border-r
-        border-white/10
-        flex
-        flex-col
-        justify-between
-        px-6
-        py-8
-      "
-    >
+  className={`
+    fixed
+    md:static
+    top-0
+    left-0
+    z-50
+
+    w-72
+    min-h-screen
+
+    bg-black
+    border-r
+    border-white/10
+
+    flex
+    flex-col
+    justify-between
+
+    px-6
+    py-8
+
+    transition-transform
+    duration-300
+
+    ${
+      sidebarOpen
+        ? "translate-x-0"
+        : "-translate-x-full md:translate-x-0"
+    }
+  `}
+>
 
       <div>
 
@@ -124,6 +144,9 @@ function Sidebar({
             return (
 
               <Link
+  onClick={() =>
+    setSidebarOpen(false)
+  }
                 key={item.path}
                 to={item.path}
                 className={`

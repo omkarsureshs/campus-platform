@@ -45,7 +45,7 @@ function NoteCard({
 `}
     >
 
-      <h2 className="text-3xl font-semibold mb-4 font-['Space_Grotesk']">
+      <h2 className="text-2xl md:text-3xl font-semibold mb-4 font-['Space_Grotesk']">
         {note.title}
       </h2>
 
