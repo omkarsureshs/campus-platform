@@ -153,7 +153,7 @@ router.patch("/:id/pin", authMiddleware, async (req, res) => {
 
     res.status(500).json({
       success: false,
-      message: "Server error",
+      message: "Server error!",
     });
 
   }
