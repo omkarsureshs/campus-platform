@@ -17,6 +17,10 @@ const [editingId, setEditingId] = useState(null);
 const [submitting, setSubmitting] = useState(false);
 const [searchQuery, setSearchQuery] = useState("");
 const [tags, setTags] = useState("");
+const [selectedTag, setSelectedTag] =
+  useState("");
+  const [sortBy, setSortBy] =
+  useState("pinned");
 
   useEffect(() => {
 
@@ -207,24 +211,59 @@ setTags(note.tags.join(", "));
 const filteredNotes = [...notes]
   .filter((note) => {
 
-    const query = searchQuery.toLowerCase();
+    const query =
+      searchQuery.toLowerCase();
 
-    return (
+    const matchesSearch =
       note.title.toLowerCase().includes(query) ||
       note.content.toLowerCase().includes(query) ||
       note.tags?.some((tag) =>
         tag.toLowerCase().includes(query)
-      )
+      );
+
+    const matchesTag =
+      selectedTag === "" ||
+      note.tags?.includes(selectedTag);
+
+    return (
+      matchesSearch &&
+      matchesTag
     );
 
   })
   .sort((a, b) => {
 
-    if (a.pinned === b.pinned) {
-      return 0;
-    }
+    switch (sortBy) {
 
-    return a.pinned ? -1 : 1;
+      case "newest":
+        return (
+          new Date(b.created_at) -
+          new Date(a.created_at)
+        );
+
+      case "oldest":
+        return (
+          new Date(a.created_at) -
+          new Date(b.created_at)
+        );
+
+      case "az":
+        return a.title.localeCompare(
+          b.title
+        );
+
+      case "pinned":
+      default:
+
+        if (a.pinned === b.pinned)
+          return (
+            new Date(b.created_at) -
+            new Date(a.created_at)
+          );
+
+        return a.pinned ? -1 : 1;
+
+    }
 
   });
 
@@ -281,13 +320,17 @@ duration-300
 
       )}
 
-<div className="mb-8">
+<div className="mb-8 space-y-4">
 
   <input
     type="text"
     placeholder="Search notes..."
     value={searchQuery}
-    onChange={(e) => setSearchQuery(e.target.value)}
+    onChange={(e) =>
+      setSearchQuery(
+        e.target.value
+      )
+    }
     className="
       w-full
       bg-white/[0.03]
@@ -302,6 +345,105 @@ duration-300
       duration-300
     "
   />
+
+  <div className="flex flex-wrap gap-2">
+
+    <button
+      onClick={() =>
+        setSelectedTag("")
+      }
+      className={`
+        px-3 py-1
+        rounded-full
+        text-sm
+
+        ${
+          selectedTag === ""
+            ? "bg-white text-black"
+            : "bg-white/5 text-gray-400"
+        }
+      `}
+    >
+      All
+    </button>
+
+    {[...new Set(
+      notes.flatMap(
+        (note) =>
+          note.tags || []
+      )
+    )].map((tag) => (
+
+      <button
+        key={tag}
+        onClick={() =>
+          setSelectedTag(tag)
+        }
+        className={`
+          px-3 py-1
+          rounded-full
+          text-sm
+
+          ${
+            selectedTag === tag
+              ? "bg-white text-black"
+              : "bg-white/5 text-gray-400"
+          }
+        `}
+      >
+        #{tag}
+      </button>
+
+    ))}
+
+  </div>
+
+  <select
+  value={sortBy}
+  onChange={(e) =>
+    setSortBy(e.target.value)
+  }
+  className="
+    bg-white/[0.03]
+    border
+    border-white/10
+    rounded-xl
+    px-4
+    py-2
+    text-sm
+    text-white
+  "
+>
+
+  <option
+    value="pinned"
+    className="text-black"
+  >
+    Pinned First
+  </option>
+
+  <option
+    value="newest"
+    className="text-black"
+  >
+    Newest First
+  </option>
+
+  <option
+    value="oldest"
+    className="text-black"
+  >
+    Oldest First
+  </option>
+
+  <option
+    value="az"
+    className="text-black"
+  >
+    A-Z
+  </option>
+
+</select>
 
 </div>
 <AnimatePresence>
