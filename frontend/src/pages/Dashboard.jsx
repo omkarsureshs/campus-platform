@@ -3,7 +3,7 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import StatsCard from "../components/StatsCard";
 
-function Dashboard({ user }) {
+function Dashboard({ user, setCurrentPage }) {
 
   const [stats, setStats] = useState(null);
 

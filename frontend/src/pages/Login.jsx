@@ -137,56 +137,230 @@ function Login({ setUser }) {
 
   return (
 
-    <div className="min-h-screen bg-black text-white flex">
+  <div
+    className="
+      min-h-screen
+      bg-black
+      text-white
+      flex
+      relative
+      overflow-hidden
+    "
+  >
+
+    {/* Background Glow */}
+
+<div
+  className="
+    absolute
+    top-[-250px]
+    left-[-250px]
+    w-[600px]
+    h-[600px]
+    bg-blue-500/10
+    rounded-full
+    blur-[180px]
+  "
+/>
+
+<div
+  className="
+    absolute
+    bottom-[-250px]
+    right-[-250px]
+    w-[600px]
+    h-[600px]
+    bg-white/[0.04]
+    rounded-full
+    blur-[180px]
+  "
+/>
 
       {/* Left Side */}
 
-      <div className="hidden lg:flex w-1/2 flex-col justify-center px-20 border-r border-white/10">
+     <div
+  className="
+    hidden
+    lg:flex
+    w-1/2
+    flex-col
+    justify-center
+    px-20
+    border-r
+    border-white/10
+    relative
+    overflow-hidden
+  "
+>
 
-        <h1 className="text-7xl font-bold font-['Space_Grotesk'] leading-tight">
-          Campus
-        </h1>
+        <div className="flex items-center gap-5">
 
-        <p className="text-xl text-gray-400 mt-6">
-          Build your second brain.
-        </p>
+  <div>
 
-        <div className="mt-12 space-y-6">
+    <div className="relative z-10">
 
-          <div>
-            🧠 Smart Notes & Markdown
-          </div>
+  <div className="flex items-center gap-5 mb-8">
 
-          <div>
-            📌 Pin & Organize Ideas
-          </div>
+  <div
+    className="
+      h-16
+      w-16
+      rounded-2xl
+      border
+      border-white/10
+      bg-white/[0.04]
+      flex
+      items-center
+      justify-center
+      text-3xl
+    "
+  >
+    🧠
+  </div>
 
-          <div>
-            🔍 Powerful Search
-          </div>
+  <div>
 
-          <div>
-            ☁️ Cloud Sync
-          </div>
+    <h1
+      className="
+        text-6xl
+        font-bold
+        font-['Space_Grotesk']
+        leading-none
+      "
+    >
+      Campus
+    </h1>
 
-        </div>
+    <p className="text-gray-500 mt-2">
+      Personal Knowledge Platform
+    </p>
+
+  </div>
+
+</div>
+
+</div>
+
+<div
+  className="
+    absolute
+    bottom-20
+    right-20
+    h-72
+    w-72
+    rounded-full
+    bg-white/[0.04]
+    blur-3xl
+  "
+/>
+
+  </div>
+
+</div>
+
+       <p
+  className="
+    relative
+    z-10
+    text-xl
+    text-gray-400
+    mt-8
+    max-w-lg
+    leading-relaxed
+  "
+>
+  Capture knowledge, organize ideas,
+  and build a personal workspace that
+  grows with you.
+</p>
+
+        <div
+  className="
+    mt-12
+    grid
+    gap-4
+    relative
+    z-10
+  "
+>
+
+  <div
+    className="
+      bg-white/[0.03]
+      border border-white/10
+      rounded-2xl
+      px-5
+      py-4
+    "
+  >
+    🧠 Smart Notes & Markdown
+  </div>
+
+  <div
+    className="
+      bg-white/[0.03]
+      border border-white/10
+      rounded-2xl
+      px-5
+      py-4
+    "
+  >
+    📌 Pin & Organize Ideas
+  </div>
+
+  <div
+    className="
+      bg-white/[0.03]
+      border border-white/10
+      rounded-2xl
+      px-5
+      py-4
+    "
+  >
+    🔍 Powerful Search
+  </div>
+
+  <div
+    className="
+      bg-white/[0.03]
+      border border-white/10
+      rounded-2xl
+      px-5
+      py-4
+    "
+  >
+    ☁️ Cloud Sync
+  </div>
+
+</div>
 
       </div>
 
       {/* Right Side */}
 
-      <div className="flex-1 flex items-center justify-center px-6">
+      <div
+  className="
+    flex-1
+    flex
+    items-center
+    justify-center
+    px-6
+    relative
+    z-10
+  "
+>
 
         <div
           className="
           w-full
-          max-w-md
-          bg-white/[0.03]
-          border
-          border-white/10
-          rounded-3xl
-          p-10
-          backdrop-blur-xl
+          max-w-lg
+          bg-white/[0.04]
+border
+border-white/10
+rounded-[32px]
+p-10
+backdrop-blur-2xl
+shadow-[0_0_60px_rgba(255,255,255,0.04)]
         "
         >
 
@@ -198,13 +372,23 @@ function Login({ setUser }) {
 
           </h2>
 
-          <p className="text-gray-500 mb-8">
-
-            {isRegister
-              ? "Start your productivity journey"
-              : "Sign in to continue"}
-
-          </p>
+          <div
+  className="
+    inline-flex
+    items-center
+    gap-2
+    px-3
+    py-2
+    rounded-full
+    bg-white/[0.03]
+    border border-white/10
+    text-sm
+    text-gray-400
+    mb-8
+  "
+>
+  🚀 Launching Soon
+</div>
 
           <form
             onSubmit={handleSubmit}
@@ -226,9 +410,15 @@ function Login({ setUser }) {
                 w-full
                 p-4
                 rounded-2xl
-                bg-black
-                border
-                border-white/10
+                bg-white/[0.03]
+border
+border-white/10
+focus:border-blue-400/40
+focus:ring-2
+focus:ring-blue-400/20
+outline-none
+transition-all
+duration-300
               "
               />
 
@@ -247,9 +437,15 @@ function Login({ setUser }) {
               w-full
               p-4
               rounded-2xl
-              bg-black
-              border
-              border-white/10
+              bg-white/[0.03]
+border
+border-white/10
+focus:border-blue-400/40
+focus:ring-2
+focus:ring-blue-400/20
+outline-none
+transition-all
+duration-300
             "
             />
 
@@ -272,9 +468,15 @@ function Login({ setUser }) {
                 w-full
                 p-4
                 rounded-2xl
-                bg-black
-                border
-                border-white/10
+               bg-white/[0.03]
+border
+border-white/10
+focus:border-blue-400/40
+focus:ring-2
+focus:ring-blue-400/20
+outline-none
+transition-all
+duration-300
               "
               />
 
@@ -387,9 +589,15 @@ function Login({ setUser }) {
                   w-full
                   p-4
                   rounded-2xl
-                  bg-black
-                  border
-                  border-white/10
+                  bg-white/[0.03]
+border
+border-white/10
+focus:border-blue-400/40
+focus:ring-2
+focus:ring-blue-400/20
+outline-none
+transition-all
+duration-300
                 "
                 />
               </>
@@ -398,15 +606,17 @@ function Login({ setUser }) {
             <button
               type="submit"
               className="
-              w-full
-              bg-white
-              text-black
-              p-4
-              rounded-2xl
-              font-semibold
-              hover:scale-[1.02]
-              transition
-            "
+w-full
+bg-white
+text-black
+p-4
+rounded-2xl
+font-semibold
+hover:scale-[1.02]
+hover:opacity-90
+transition
+shadow-[0_0_30px_rgba(255,255,255,0.08)]
+"
             >
               {isRegister
                 ? "Create Account"
