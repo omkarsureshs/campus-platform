@@ -107,7 +107,7 @@ function Dashboard({ user, setCurrentPage }) {
 
       {/* PRODUCTIVITY HERO */}
 
-      <motion.div
+      <motion.div /*Complete div*/
         initial={{
           opacity: 0,
           y: 20,
