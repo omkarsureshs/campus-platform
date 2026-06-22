@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion} from "framer-motion";
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -10,7 +10,7 @@ function NoteCard({
   deleteNote,
   editNote,
   togglePin,
-
+  openNote,
 }) {
 
   const [expanded, setExpanded] =
@@ -32,7 +32,7 @@ function NoteCard({
   return (
 
     <motion.div
-      layout
+      
       initial={{
         opacity: 0,
         y: 15,
@@ -71,16 +71,20 @@ function NoteCard({
     >
 
       <h2
-        className="
-          text-2xl
-          md:text-3xl
-          font-semibold
-          mb-4
-          font-['Space_Grotesk']
-        "
-      >
-        {note.title}
-      </h2>
+  onClick={() => openNote(note)}
+  className="
+    text-2xl
+    md:text-3xl
+    font-semibold
+    mb-4
+    font-['Space_Grotesk']
+    cursor-pointer
+    hover:text-blue-400
+    transition
+  "
+>
+  {note.title}
+</h2>
 
       <div
         className="

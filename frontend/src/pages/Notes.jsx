@@ -19,6 +19,8 @@ const [searchQuery, setSearchQuery] = useState("");
 const [tags, setTags] = useState("");
 const [selectedTag, setSelectedTag] =
   useState("");
+  const [selectedNote, setSelectedNote] =
+  useState(null);
   const [sortBy, setSortBy] =
   useState("pinned");
 
@@ -694,6 +696,7 @@ duration-300
             deleteNote={deleteNote}
             editNote={editNote}
             togglePin={togglePin}
+            openNote={setSelectedNote}
           />
 
         ))}
@@ -705,7 +708,93 @@ duration-300
   </>
 
 )}
+<AnimatePresence>
 
+  {selectedNote && (
+
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={() =>
+        setSelectedNote(null)
+      }
+      className="
+        fixed
+        inset-0
+        z-[999]
+        bg-black/80
+        backdrop-blur-md
+        flex
+        items-center
+        justify-center
+        p-6
+      "
+    >
+
+      <motion.div
+        initial={{
+          scale: 0.95,
+          opacity: 0,
+        }}
+        animate={{
+          scale: 1,
+          opacity: 1,
+        }}
+        exit={{
+          scale: 0.95,
+          opacity: 0,
+        }}
+        onClick={(e) =>
+          e.stopPropagation()
+        }
+        className="
+          w-full
+          max-w-5xl
+          max-h-[90vh]
+          overflow-y-auto
+          rounded-3xl
+          border
+          border-white/10
+          bg-[#0b0b0b]
+          p-10
+        "
+      >
+
+        <h1
+          className="
+            text-5xl
+            font-bold
+            mb-8
+            font-['Space_Grotesk']
+          "
+        >
+          {selectedNote.title}
+        </h1>
+
+        <div
+          className="
+            prose
+            prose-invert
+            max-w-none
+          "
+        >
+
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+          >
+            {selectedNote.content}
+          </ReactMarkdown>
+
+        </div>
+
+      </motion.div>
+
+    </motion.div>
+
+  )}
+
+</AnimatePresence>
     </div>
 
   );
