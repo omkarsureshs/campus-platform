@@ -84,23 +84,48 @@ function Sidebar({
 
         {/* Branding */}
 
-        <div className="mb-10">
+<div className="mb-10">
 
-          <h1
-            className="
-              text-3xl
-              font-bold
-              font-['Space_Grotesk']
-            "
-          >
-            Campus
-          </h1>
+  <div className="flex items-center gap-4">
 
-          <p className="text-gray-500 mt-2 text-sm">
-            Personal Knowledge OS
-          </p>
+    <div
+      className="
+        h-14
+        w-14
+        rounded-2xl
+        bg-white/[0.04]
+        border
+        border-white/10
+        flex
+        items-center
+        justify-center
+        text-2xl
+      "
+    >
+      🧠
+    </div>
 
-        </div>
+    <div>
+
+      <h1
+        className="
+          text-3xl
+          font-bold
+          font-['Space_Grotesk']
+        "
+      >
+        Campus
+      </h1>
+
+      <p className="text-gray-500 text-sm">
+        Personal Knowledge OS
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
 
         {/* User Card */}
 
@@ -115,10 +140,22 @@ function Sidebar({
           "
         >
 
-          <UserCircle2
-            size={42}
-            className="mb-3 text-white"
-          />
+          <div
+  className="
+    h-14
+    w-14
+    rounded-full
+    bg-white/10
+    flex
+    items-center
+    justify-center
+    text-lg
+    font-bold
+    mb-3
+  "
+>
+  {user?.name?.charAt(0)?.toUpperCase()}
+</div>
 
           <h3 className="font-semibold">
             {user?.name}
@@ -161,7 +198,7 @@ function Sidebar({
 
                   ${
                     active
-                      ? "bg-white text-black"
+  ? "bg-white text-black shadow-lg"
                       : "text-gray-400 hover:text-white hover:bg-white/5"
                   }
                 `}
@@ -179,30 +216,32 @@ function Sidebar({
 
         </nav>
 
-        {/* Productivity Card */}
+        {/* Workspace Card */}
 
-        <div
-          className="
-            mt-10
-            bg-gradient-to-br
-            from-white/5
-            to-white/[0.02]
-            border
-            border-white/10
-            rounded-3xl
-            p-5
-          "
-        >
+<div
+  className="
+    mt-10
+    bg-white/[0.03]
+    border
+    border-white/10
+    rounded-3xl
+    p-5
+  "
+>
 
-          <p className="text-gray-500 text-sm mb-2">
-            Daily Focus
-          </p>
+  <p className="text-gray-500 text-sm mb-2">
+    Workspace Status
+  </p>
 
-          <h3 className="text-xl font-semibold">
-            Build your second brain.
-          </h3>
+  <h3 className="text-xl font-semibold">
+    Keep Learning
+  </h3>
 
-        </div>
+  <p className="text-gray-500 text-sm mt-2">
+    Capture ideas. Build knowledge.
+  </p>
+
+</div>
 
       </div>
 
