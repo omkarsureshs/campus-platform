@@ -23,6 +23,8 @@ const [selectedTag, setSelectedTag] =
   useState(null);
   const [sortBy, setSortBy] =
   useState("pinned");
+  const [zoom, setZoom] =
+  useState(100);
 
   useEffect(() => {
 
@@ -696,7 +698,12 @@ duration-300
             deleteNote={deleteNote}
             editNote={editNote}
             togglePin={togglePin}
-            openNote={setSelectedNote}
+            openNote={(note) => {
+
+  setSelectedNote(note);
+  setZoom(100);
+
+}}
           />
 
         ))}
@@ -799,5 +806,60 @@ duration-300
 
   );
 }
+const downloadNote = () => {
+
+  if (!selectedNote) return;
+
+  const blob = new Blob(
+    [selectedNote.content],
+    {
+      type: "text/markdown",
+    }
+  );
+
+  const url =
+    window.URL.createObjectURL(blob);
+
+  const link =
+    document.createElement("a");
+
+  link.href = url;
+
+  link.download =
+    `${selectedNote.title}.md`;
+
+  link.click();
+
+  window.URL.revokeObjectURL(url);
+
+};
+
+const printNote = () => {
+
+  window.print();
+
+};
+
+const copyNote = async () => {
+
+  try {
+
+    await navigator.clipboard.writeText(
+      selectedNote.content
+    );
+
+    toast.success(
+      "Copied to clipboard" /*Copy feature*/
+    );
+
+  } catch {
+
+    toast.error(
+      "Copy failed"
+    );
+
+  }
+
+};
 
 export default Notes;
