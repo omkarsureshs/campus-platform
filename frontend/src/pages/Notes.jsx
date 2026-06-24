@@ -849,7 +849,7 @@ const copyNote = async () => {
     );
 
     toast.success(
-      "Copied to clipboard" /*Copy feature*/
+      "Copied to clipboard" 
     );
 
   } catch {
