@@ -862,4 +862,4 @@ const copyNote = async () => {
 
 };
 
-export default Notes;/*fixed*/
+export default Notes;
